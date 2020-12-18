@@ -82,6 +82,16 @@ Movie genres contain infromation about which catogory a movie belongs to, and us
 
 #### Add IMDB Tags 
 
+We use LDA to embedding tag information for each movies, we systematically try wide range of topic numbers and choose the 50 hidden number of topics as it gives the best performance. 
+
+We visualize the topic tags distribution as well as document topics distribution. We can see that there is a clear pattern in the tags distribution in topics 3 and topics 6 which is about violence and illness. Some topics don’t reveal much information as the data is not complete, we believe adding more data will result in a better topic word distribution. 
+<img src="./topic_word.jpeg" width="50%" height="50%" />
+
+
+As for document topic distribution, there are many documents to be explored we select two document to see there distribution difference, we see there indeed exist great variety in topic distribution between documents between theses two movies.
+
+<img src="./docu_topic.jpeg" width="50%" height="50%" />
+
 The orange line is accuracy of adding genres while the blue line is the baseline. Adding this information can beat the baseline model. k = 5 is the best choice. Sepecific data can be seen in our notebook.
 
 ```Python 
@@ -184,7 +194,6 @@ plt.show()
 
 
 We saw the movie from 80s receive the highest mean score, and we think the return to studio-driven pictures in 80s plays an important role in the high popularity of the films. The idea of Hollywood film making concept changed in 80s from plain story telling to highly marketable and understandable cinematic plots that could be summarized in one or two sentences. 
-
 We saw 2010 ranked second, it probability because the massive use of 3D technology following the success of Avatar.
 
 <img src="./movie_year.jpeg" width="50%" height="50%" />
@@ -219,6 +228,7 @@ plt.show()
 <img src="./ffm_country.png" width="50%" height="50%" />
 
 
+According to the result, it shows that country information is helpful in determining the rating of the movie, we classify the movie according to the region. We saw an improvement in the overall score once added the country information to model.
 
 <img src="./movie_country.jpeg" width="100%" height="100%" />
 
