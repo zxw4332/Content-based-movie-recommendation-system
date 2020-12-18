@@ -34,8 +34,6 @@ The model we used for this FFM model. FFM is appropriate when movie information 
 
 
 
-
-
 ## Model and Results 
 
 The provided movielens dataset contains movies information like moive genres, movive years, which we think are not enough to represent a movie. So we crawled other movie information like movie tags and movie countries from imdb to make the movie information more complete. Since we run our model on a single machine, we choose to use a movie sample containing 3357 movies to do the recommendation. And we selected users having rating records on these 3357 movies with at least 15 times. The reason to choose 15 is that since we will do 3-fold cross validation to tune the hyper parameter, we want one user has at least 5 records in test set otherwise the ranking method will not that useful.
@@ -52,6 +50,17 @@ Results:
 |NDCG|-|0.9058|0.9088|0.9057|0.8808|0.9111|0.9108|0.9079|
 
 
+### Group user by user rating activite level
+
+<img src="./active_hist.jpeg" width="50%" height="50%" />
+
+We draw a hist distribution of user rating count number to see whether there exist difference for active level. We want to see the different effect of our model on different active level so we group all user to three groups according to their rating count record number. We want each group to cover enough number of users so in the end we decided to let the user who has more than 60 records to be high active level user and users who has less than 20 rating records to be low active level user and between is medium active level users. We draw our conclusion by ploting the hist distribution below and the result shows below.
+
+
+Results:
+||low_active_user|medium_active_user|high_active_user|
+|-|-|-|-|
+|Count number|2470|3559|1031|
 
 
 ### Baseline 
