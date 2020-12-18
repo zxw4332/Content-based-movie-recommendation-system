@@ -47,9 +47,9 @@ The main package we used for this project is xlearn. xLearn is a high-performanc
 
 Results:
 ||bias|mf|ffm+genre|ffm+tag|ffm+time|ffm+year|ffm+country|ffm+ensemble|
-|-|-|-|-|-|-|-|-|-|-|
+|-|-|-|-|-|-|-|-|-|
 |RMSE|0.8438|0.8246|0.8169|0.8237|0.8860|0.8100|0.8105|0.8294|
-|NDCG|\|0.9058|0.9088|0.9057|0.8808|0.9111|0.9108|0.9079|
+|NDCG|-|0.9058|0.9088|0.9057|0.8808|0.9111|0.9108|0.9079|
 
 
 
