@@ -6,18 +6,18 @@
 
 In this project our team focused on generating movie recommendations to old users in the movie rating system based on rating information and movie information. We used only bias term model and matrix factorization to build our baseline model. And in order to enhance the power of our model, we used FFM to incoorperate several types of movie information like movie genres, movie years and moive countries. MSE and NDCG were used to evaluate model accuracy and 3-fold cross validation was used for hyper parameter tuning(hidden dimension k for FFM model). Finally, we ensembeled several fields that can be used to enhance model accuray into FFM and build our final model for movie recommendation.  
 
-## Github Repo Structrue 
+## Github Repo Structrue & Requirements
 
-folder:
+Folder:
 - xlearn: store training and testing set, models and results, empty here, files will be generated after running the code.
 - lda: topic modeling for adding genres information.
 
-files:
+Files:
 - *.png and *.jpeg files are used in markdown.
-- xlearn.ipynb: python script to run FFM model.
+- xlearn.ipynb: python source code for this project.
 - movie_info.csv, genres_encode.pkl, movie_lda_50.pkl: files as model input. data in movielens dataset is not included.
 
-requirements:
+Requirements:
 - python 3.8
 - pandas numpy xlearn matplotlib seaborn
 
@@ -212,11 +212,6 @@ We saw the movie from 80s receive the highest mean score, and we think the retur
 We saw 2010 ranked second, it probability because the massive use of 3D technology following the success of Avatar.
 
 <img src="./movie_year.jpeg" width="50%" height="50%" />
-
-
-
-<img src="./user_year.jpeg" width="80%" height="80%" />
-
 
 
 ### Add Country
