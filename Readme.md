@@ -99,7 +99,8 @@ Movie genres contain infromation about which catogory a movie belongs to, and us
 
 We use LDA to embedding tag information for each movies, we systematically try wide range of topic numbers and choose the 50 hidden number of topics as it gives the best performance. 
 
-We visualize the topic tags distribution as well as document topics distribution. We can see that there is a clear pattern in the tags distribution in topics 3 and topics 6 which is about violence and illness. Some topics don’t reveal much information as the data is not complete, we believe adding more data will result in a better topic word distribution. 
+We visualize the topic tags distribution as well as document topics distribution. We can see that there is a clear pattern in the tags distribution in topics 3 and topics 6 which is about violence and illness. Some topics don’t reveal much information as the data is not complete, we believe adding more data will result in a better topic word distribution.
+
 <img src="./topic_word.jpeg" width="50%" height="50%" />
 
 
@@ -155,8 +156,7 @@ The mystery is the most popular genre and have an overall score near to 4.0, it 
 
 <img src="./movie_genre_rating.jpeg" width="50%" height="50%" />
 
-
-
+Take user_id= 34415 as an example. They user rated 35 movies in our dataset and we plot the distribution of genres of 30% of the movies with highest scores(blue) and 30% of the movies with lowest scores(orange). In this picture we show what genres the movies are.  This user are likely to give higher scores to drama, comedy, romance movies, and give lower scores to action, thriller, adventure movies. This kind of users usually have preference for several particular genres of movies but hate some other genres. Thus we think genre is a good side information to help learn user tastes.
 
 <img src="./user_genre.jpeg" width="70%" height="70%" />
 
@@ -247,7 +247,7 @@ According to the result, it shows that country information is helpful in determi
 
 <img src="./movie_country.jpeg" width="100%" height="100%" />
 
-Take user_id= 81924 as an example. They user rated 89 movies in our dataset and we take out the 30% of the movies with highest scores and 30% of the movies with lowest scores. In this picture we show from which countries they were produced. We can see that the user watched lots of USA and UK movies, only gave low scores to USA movies. For movies from other countries, he or she gave high scores. For this kind of users, they usually watch movies from a specific country( like USA in the example), but sometimes they would also watch really good movies from other countries. For these 'really good movies' they tend to give higher scores.
+Take user_id= 81924 as an example. The user rated 89 movies in our dataset and we  use 30% of the movies with highest scores and 30% of the movies with lowest scores. In this picture we show from which countries they were produced. We can see that the user watched lots of USA and UK movies, only gave low scores to USA movies. For movies from other countries, he or she gave high scores. For this kind of users, they usually watch movies from a specific country( like USA in the example), but sometimes they would also watch really good movies from other countries. For these 'really good movies' they tend to give higher scores.
 Also, for some other users, they may have a preference for movies from a particular country and tend to give higher scores. In this way, we can really learn some useful information from the 'country' embedding.
 
 <img src="./user_country.jpeg" width="70%" height="70%" />
@@ -302,11 +302,14 @@ import pandas as pd
 import xlearn as xl  
 import numpy as np 
 import re 
-import matplotlib.pyplot as plt 
-import seaborn as sns
 
 
 def data_sampling():
+
+    """
+    sample rating data, and change data format as ffm input format 
+
+    """
     # read data 
     movie_ids = pd.read_csv("./movie_info.csv")[["movie_id","movie_rating","movie_year","movie_detail"]]
     links = pd.read_csv("./links.csv")
@@ -353,6 +356,11 @@ def data_sampling():
     return ratings_high
 
 def ffm_CV(ratings_high,columns,file_name):
+
+    """
+    create 3 - fold cross validation
+
+    """
 
     # Generate 3 fold cv
 
@@ -429,6 +437,11 @@ def ffm_CV(ratings_high,columns,file_name):
 
 
 def ffm_cv_eval(k_lst, file_name):
+    """
+    k_lst: hidden dimension k, hyperparameter
+    file_name: indicates which data set is used to build ffm model
+    return: mse and ndcg
+    """
 
     def NDCG(t):
         """
@@ -465,9 +478,8 @@ def ffm_cv_eval(k_lst, file_name):
 
             # update mse
             pred_ratings = pd.read_csv("./xlearn/"+file_name+"/ratings_high_output"+i+".txt",header=None)
-            pred_ratings = list(pred_ratings[0])
-            pred_ratings = [5 if i>5 else i for i in pred_ratings]
-            pred_ratings = [0 if i<0 else i for i in pred_ratings]
+            pred_ratings = pred_ratings[0]
+
 
             label_ratings = pd.read_csv("./xlearn/"+file_name+"/ratings_high_test"+i+".txt",header=None)
             label_ratings[0] = label_ratings[0].apply(lambda x: x.split(" ")[0:3])
@@ -478,7 +490,7 @@ def ffm_cv_eval(k_lst, file_name):
             label_ratings = label_ratings[['rating','user_id','movie_id']]
 
 
-            mse.append((np.sum((label_ratings["rating"] - pred_ratings)**2)/label_ratings.shape[0])**(1/2))
+            mse.append((np.sum((label_ratings["rating"] - pred_ratings[0])**2)/label_ratings.shape[0]))
 
             # update ndcg
             label_ratings["pred_rating"] = pred_ratings
@@ -494,6 +506,9 @@ def ffm_cv_eval(k_lst, file_name):
 
 
 def Add_genre(ratings_high):
+    """
+    add genre and change it to ffm input format
+    """
 
     movie_lda = pd.read_pickle("./genres_encode.pkl")
     movie_lda =  movie_lda[["movieId","genres_vec"]]
@@ -508,7 +523,9 @@ def Add_genre(ratings_high):
 
 
 def Add_tag(ratings_high):
-
+    """
+    add tag and change it to ffm input format
+    """
     movie_lda = pd.read_pickle("./movie_lda_50.pkl")
     movie_lda =  movie_lda[["movieId","result"]]
     movie_lda.columns = ['movie_id','tag_index']
@@ -521,7 +538,9 @@ def Add_tag(ratings_high):
     return ratings_high
 
 def Add_recent(ratings_high):
-
+    """
+    add recent rated movies for a user rating on a movie and change it to ffm input format
+    """
     def list_convert(l):
         if l != "":
             return " ".join(l)
@@ -544,6 +563,9 @@ def Add_recent(ratings_high):
 
 
 def Add_year(ratings_high):
+    """
+    add year and change it to ffm input format
+    """
     def convert_year(year):
         if year == 0:
             return 0
@@ -556,9 +578,9 @@ def Add_year(ratings_high):
         else:
             return 4
     
-    ratings_high["year_index"] = ratings_high.movie_year.apply(convert_year)
+    ratings_high.movie_year = ratings_high.movie_year.apply(convert_year)
     index_start = ratings_high.user_id.unique().shape[0] + ratings_high.movie_id.unique().shape[0]
-    ratings_high.year_index = ratings_high.year_index.apply(lambda x: "2:"+str(index_start+x)+":1")
+    ratings_high.movie_year = ratings_high.movie_year.apply(lambda x: "2:"+str(index_start+x)+":1")
 
     return ratings_high
 
@@ -566,6 +588,9 @@ def Add_year(ratings_high):
 
 
 def Add_country(ratings_high):
+    """
+    add country and change it to ffm input format
+    """
 
     def convert_country(country):
         if re.findall(r"'Country:(.*?)'",country) == []:
@@ -581,26 +606,7 @@ def Add_country(ratings_high):
     ratings_high = pd.merge(ratings_high,movie_country[["country","country_index"]],on="country")
     index_start = ratings_high.user_id.unique().shape[0] + ratings_high.movie_id.unique().shape[0]
     ratings_high.country_index = ratings_high.country_index.apply(lambda x: "2:"+str(index_start+x)+":1")
-    
-    return ratings_high
+
 
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
