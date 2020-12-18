@@ -2,7 +2,7 @@
 
 ## Requirement:
 
-gensim numpy pandas nltk
+gensim/numpy/pandas/nltk
 
 ## Procedure: 
 
