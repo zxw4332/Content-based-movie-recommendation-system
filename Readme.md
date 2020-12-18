@@ -1,7 +1,8 @@
 # Movie Recommendation Using Multi-Field FFM 
 
-Tianyao Han(th2830), Zijian Wang(zw2606), Yue Lyu(yl4259)
-Email: th2830@columbia.edu, zw2606@columbia.edu, yl4259@columbia.edu
+### Tianyao Han(th2830), Zijian Wang(zw2606), Yue Lyu(yl4259)
+
+### Email: th2830@columbia.edu, zw2606@columbia.edu, yl4259@columbia.edu
 
 ## Abstract 
 
