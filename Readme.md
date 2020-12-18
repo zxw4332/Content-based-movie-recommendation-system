@@ -223,6 +223,9 @@ plt.show()
 <img src="./movie_country.jpeg" width="100%" height="100%" />
 
 
+<img src="./user_country.jpeg" width="70%" height="70%" />
+
+
 ### Ensemble 
 
 The orange line is accuracy of adding genres while the blue line is the baseline. Doing ensemble can beat the baseline model. k = 25 is the best choice. Sepecific data can be seen in our notebook. From the plot we can see that although the pure accuray is not as high as accuracy before ensemble, the variation of the result became small. So doing ensemble gives us a more stable result.
