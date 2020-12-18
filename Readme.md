@@ -177,7 +177,10 @@ Take user_id= 34415 as an example. They user rated 35 movies in our dataset and 
 
 <img src="./user_genre.jpeg" width="70%" height="70%" />
 
-<img src="./genres_active.jpeg" width="70%" height="70%" />
+Results:
+||low_active_user|medium_active_user|high_active_user|
+|-|-|-|-|
+|MSE|0.719|0.689|0.629|
 
 
 ### Add Time 
@@ -203,6 +206,10 @@ plt.show()
 
 <img src="./ffm_recent.png" width="50%" height="50%" />
 
+Results:
+||low_active_user|medium_active_user|high_active_user|
+|-|-|-|-|
+|MSE|0.719|0.689|0.629|
 
 ### Add Year
 
@@ -232,6 +239,10 @@ We saw 2010 ranked second, it probability because the massive use of 3D technolo
 
 <img src="./movie_year.jpeg" width="50%" height="50%" />
 
+Results:
+||low_active_user|medium_active_user|high_active_user|
+|-|-|-|-|
+|MSE|0.719|0.689|0.629|
 
 ### Add Country
 
@@ -266,6 +277,10 @@ Also, for some other users, they may have a preference for movies from a particu
 
 <img src="./user_country.jpeg" width="70%" height="70%" />
 
+Results:
+||low_active_user|medium_active_user|high_active_user|
+|-|-|-|-|
+|MSE|0.719|0.689|0.629|
 
 ### Ensemble 
 
@@ -291,7 +306,10 @@ ensem_res = ffm_cv_eval(k_lst, "mf_ensemble")
 <img src="./ffm_ensembel.png" width="50%" height="50%" />
 
 
-
+Results:
+||low_active_user|medium_active_user|high_active_user|
+|-|-|-|-|
+|MSE|0.719|0.689|0.629|
 
 ## Generate Recommendation 
 
