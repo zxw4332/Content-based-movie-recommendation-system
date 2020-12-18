@@ -1,6 +1,6 @@
 # LDA Model
 
-## Requirement:
+## Packages:
 
 gensim/numpy/pandas/nltk
 
