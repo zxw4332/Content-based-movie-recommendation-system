@@ -1,6 +1,10 @@
-Requirement : gensim numpy pandas nltk
+# LDA Model
 
-Procedure: 
+## Requirement:
+
+gensim numpy pandas nltk
+
+## Procedure: 
 
 1. load sampled data 
 2. preprocess tags, filter the infrequent word.(tag is already preprocessed word and we don't think it needs further process)
