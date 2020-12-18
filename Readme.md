@@ -14,7 +14,7 @@ Folder:
 
 Files:
 - *.png and *.jpeg files are used in markdown.
-- xlearn.ipynb: python source code for this project.
+- **xlearn.ipynb: python source code** for this project.
 - movie_info.csv, genres_encode.pkl, movie_lda_50.pkl: files as model input. data in movielens dataset is not included.
 
 Requirements:
