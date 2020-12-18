@@ -1,8 +1,5 @@
 # Movie Recommendation Using Multi-Field FFM 
 
-### Tianyao Han(th2830), Zijian Wang(zw2606), Yue Lyu(yl4259)
-
-### Email: th2830@columbia.edu, zw2606@columbia.edu, yl4259@columbia.edu
 
 ## Abstract 
 
@@ -46,6 +43,14 @@ The provided movielens dataset contains movies information like moive genres, mo
 The main package we used for this project is xlearn. xLearn is a high-performance, easy-to-use, and scalable machine learning package, which can be used to solve large-scale machine learning problems, especially for the problems on large-scale sparse data, which is very common in scenes like CTR prediction and recommender system. xlearn is written in C++ and Python wrapper is provided. xlearn is much faster than libffm and libfm. So it's worth trying.
 
 ![avatar](./xlearn_intro.png)
+
+
+Results:
+||bias|mf|ffm+genre|ffm+tag|ffm+time|ffm+year|ffm+country|ffm+ensemble|
+|-|-|-|-|-|-|-|-|-|-|
+|RMSE|0.8438|0.8246|0.8169|0.8237|0.8860|0.8100|0.8105|0.8294|
+|NDCG|\|0.9058|0.9088|0.9057|0.8808|0.9111|0.9108|0.9079|
+
 
 
 
