@@ -6,6 +6,21 @@
 
 In this project our team focused on generating movie recommendations to old users in the movie rating system based on rating information and movie information. We used only bias term model and matrix factorization to build our baseline model. And in order to enhance the power of our model, we used FFM to incoorperate several types of movie information like movie genres, movie years and moive countries. MSE and NDCG were used to evaluate model accuracy and 3-fold cross validation was used for hyper parameter tuning(hidden dimension k for FFM model). Finally, we ensembeled several fields that can be used to enhance model accuray into FFM and build our final model for movie recommendation.  
 
+## Github Repo Structrue 
+
+folder:
+- xlearn: store training and testing set, models and results, empty here, files will be generated after running the code.
+- lda: topic modeling for adding genres information.
+
+files:
+- *.png and *.jpeg files are used in markdown.
+- xlearn.ipynb: python script to run FFM model.
+- movie_info.csv, genres_encode.pkl, movie_lda_50.pkl: files as model input. data in movielens dataset is not included.
+
+requirements:
+- python 3.8
+- pandas numpy xlearn matplotlib seaborn
+
 
 ## Dataset & Framework
 
@@ -136,12 +151,12 @@ plt.show()
 <img src="./ffm_genre.png" width="50%" height="50%" />
 
 
-- Plot genre ratings 
+The mystery is the most popular genre and have an overall score near to 4.0, it means that Mystery topic is more acceptable for general population. As contrary, horror film is the hardest genre to capture population. We beleive the different acceptable threshold of different genre contain information that is useful for later prediction.
 
 <img src="./movie_genre_rating.jpeg" width="50%" height="50%" />
 
 
-- User genre 
+
 
 <img src="./user_genre.jpeg" width="70%" height="70%" />
 
@@ -232,6 +247,8 @@ According to the result, it shows that country information is helpful in determi
 
 <img src="./movie_country.jpeg" width="100%" height="100%" />
 
+Take user_id= 81924 as an example. They user rated 89 movies in our dataset and we take out the 30% of the movies with highest scores and 30% of the movies with lowest scores. In this picture we show from which countries they were produced. We can see that the user watched lots of USA and UK movies, only gave low scores to USA movies. For movies from other countries, he or she gave high scores. For this kind of users, they usually watch movies from a specific country( like USA in the example), but sometimes they would also watch really good movies from other countries. For these 'really good movies' they tend to give higher scores.
+Also, for some other users, they may have a preference for movies from a particular country and tend to give higher scores. In this way, we can really learn some useful information from the 'country' embedding.
 
 <img src="./user_country.jpeg" width="70%" height="70%" />
 
