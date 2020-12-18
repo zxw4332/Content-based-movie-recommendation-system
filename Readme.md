@@ -168,6 +168,8 @@ Take user_id= 34415 as an example. They user rated 35 movies in our dataset and 
 
 <img src="./user_genre.jpeg" width="70%" height="70%" />
 
+<img src="./genres_active.jpeg" width="70%" height="70%" />
+
 
 ### Add Time 
 
