@@ -46,9 +46,9 @@ The main package we used for this project is xlearn. xLearn is a high-performanc
 Results:
 ||bias|mf|ffm+genre|ffm+tag|ffm+time|ffm+year|ffm+country|ffm+ensemble|
 |-|-|-|-|-|-|-|-|-|
-|RMSE|0.8438|0.8246|0.8169|0.8237|0.8860|0.8100|0.8105|0.8294|
+|MSE|0.7120|0.6800|0.6673|0.6785|0.7850|0.6561|0.6569|0.6879|
 |NDCG|-|0.9058|0.9088|0.9057|0.8808|0.9111|0.9108|0.9079|
-
+|optimal_k|-|5|40|5|30|110|45|25|
 
 ### Group user by user rating activite level
 
@@ -70,7 +70,7 @@ We used 2 models served as our baseline models. First one only consider bias ter
 
 #### User Bias + Movie Bias Baseline 
 
-We implemented this base line using surprise and did 5 fold cross validation. RMSE for this baseline is 0.8438 
+We implemented this base line using surprise and did 5 fold cross validation. MSE for this baseline is 0.7120 
 
 ```Python 
 from surprise import NormalPredictor
@@ -94,7 +94,7 @@ cross_validate(algo, data, measures=['RMSE', 'MAE'], cv=5, verbose=True)
 
 #### FFM + Rating Information
 
-In the FFM framwork, if we do not add any other information, then FFM is just the same as matrix factorization. After running these 3 line of codes we can get the result.(The implementation of these functions can be seen in the Appendix). The best mse and NDCG for this baseline is 0.824 and 0.906 and k is 4.
+In the FFM framwork, if we do not add any other information, then FFM is just the same as matrix factorization. After running these 3 line of codes we can get the result.(The implementation of these functions can be seen in the Appendix). The best mse and NDCG for this baseline is 0.680 and 0.906 and k is 4.
 
 
 ```Python 
