@@ -57,6 +57,7 @@ Results:
 We draw a hist distribution of user rating count number to see whether there exist difference for active level. We want to see the different effect of our model on different active level so we group all user to three groups according to their rating count record number. We want each group to cover enough number of users so in the end we decided to let the user who has more than 60 records to be high active level user and users who has less than 20 rating records to be low active level user and between is medium active level users. We draw our conclusion by ploting the hist distribution below and the result shows below.
 
 
+
 Results:
 ||low_active_user|medium_active_user|high_active_user|
 |-|-|-|-|
@@ -103,7 +104,12 @@ base_res = ffm_cv_eval(k_lst, "mf")
 ```
 <img src="./ffm_baseline.png" width="50%" height="50%" />
 
+We want to record the base mse for different activate level user and compare the result when we add extral information in it.
 
+Results:
+||low_active_user|medium_active_user|high_active_user|
+|-|-|-|-|
+|MSE|0.7343|0.711|0.6629|
 
 
 ### Add Genres 
@@ -177,10 +183,13 @@ Take user_id= 34415 as an example. They user rated 35 movies in our dataset and 
 
 <img src="./user_genre.jpeg" width="70%" height="70%" />
 
+We test our model for different level of activate users. We draw conclusion that the higher the activate level the lower the mse score it is reasonable because the more the user watched the movie, the more information about the movie is added and result in more accurate prediction. What we want to know the most is which level of active user improved the most, it shows that the high active user improve the most which means we will get more accuracy when we add more side information.
+
 Results:
 ||low_active_user|medium_active_user|high_active_user|
 |-|-|-|-|
 |MSE|0.719|0.689|0.629|
+|Improve|0.015|0.022|0.0339|
 
 
 ### Add Time 
@@ -206,10 +215,6 @@ plt.show()
 
 <img src="./ffm_recent.png" width="50%" height="50%" />
 
-Results:
-||low_active_user|medium_active_user|high_active_user|
-|-|-|-|-|
-|MSE|0.719|0.689|0.629|
 
 ### Add Year
 
@@ -239,10 +244,13 @@ We saw 2010 ranked second, it probability because the massive use of 3D technolo
 
 <img src="./movie_year.jpeg" width="50%" height="50%" />
 
+We compaer the result from different activate level to base model and see that the more activate the user is the more accurate the model predict. 
+
 Results:
 ||low_active_user|medium_active_user|high_active_user|
 |-|-|-|-|
-|MSE|0.719|0.689|0.629|
+|MSE|0.7050|0.6691|0.6166|
+|Improve|0.029|0.0419|0.0469|
 
 ### Add Country
 
@@ -277,10 +285,13 @@ Also, for some other users, they may have a preference for movies from a particu
 
 <img src="./user_country.jpeg" width="70%" height="70%" />
 
+We compaer the result from different activate level to base model and see that the medium activate level user improved the most. We believe that it is because the lower activate level user do not have enough information and high activate user have too much inforamtion to drag their prediction from massive rating records which are direct evidence.
+
 Results:
 ||low_active_user|medium_active_user|high_active_user|
 |-|-|-|-|
-|MSE|0.719|0.689|0.629|
+|MSE|0.7052|0.6726|0.6166|
+|Improve|0.015|0.0384|0.0339|
 
 ### Ensemble 
 
@@ -305,11 +316,13 @@ ensem_res = ffm_cv_eval(k_lst, "mf_ensemble")
 
 <img src="./ffm_ensembel.png" width="50%" height="50%" />
 
+We test our model on different activate level users and see that the improvement from base line model is not greater than the above model when we add one filed each time. We think it is because the attribute is not indipendent and the correlation may affect the accuracy of the model.
 
 Results:
 ||low_active_user|medium_active_user|high_active_user|
 |-|-|-|-|
-|MSE|0.719|0.689|0.629|
+|MSE|0.728|0.692|0.640|
+|Improve|0.0063|0.019|0.0229|
 
 ## Generate Recommendation 
 
