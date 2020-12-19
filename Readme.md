@@ -46,7 +46,7 @@ The main package we used for this project is xlearn. xLearn is a high-performanc
 Results:
 ||bias|mf|ffm+genre|ffm+tag|ffm+time|ffm+year|ffm+country|ffm+ensemble|voting_ensembel|
 |-|-|-|-|-|-|-|-|-|-|
-|MSE|0.7120|0.6800|0.6673|0.6785|0.7850|0.6561|0.6569|0.6879|0.6514|
+|MSE|0.7120|0.6800|0.6673|0.6785|0.7850|0.6561|0.6569|0.6879|**0.6514**|
 |NDCG|-|0.9058|0.9088|0.9057|0.8808|0.9111|0.9108|0.9079|-|
 |optimal_k|-|5|40|5|30|110|45|25|-|
 
@@ -334,7 +334,7 @@ Results:
 |Improve|0.0063|0.019|0.0229|
 
 
-We also tried voting ensemble for 3 models on year, genre and country, and this is our best result. mse is 0.6414.
+We also tried voting ensemble for 3 models on year, genre and country, and this is our best result. mse is 0.6514.
 
 ```Python 
 def NDCG(t):
