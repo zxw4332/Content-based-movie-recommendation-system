@@ -4,7 +4,7 @@
 ## Abstract 
 
 
-In this project our team focused on generating movie recommendations to old users in the movie rating system based on rating information and movie information. We used only bias term model and matrix factorization to build our baseline model. And in order to enhance the power of our model, we used FFM to incoorperate several types of movie information like movie genres, movie years and moive countries. MSE and NDCG were used to evaluate model accuracy and 3-fold cross validation was used for hyper parameter tuning(hidden dimension k for FFM model). Finally, we ensembeled several fields that can be used to enhance model accuray into FFM and build our final model for movie recommendation.  
+In this project our team focused on generating movie recommendations to old users in the movie rating system based on rating information and movie information. We used only bias term model and matrix factorization to build our baseline model. And in order to enhance the power of our model, we used FFM to incoorperate several types of movie information like movie genres, movie years and moive countries. MSE and NDCG were used to evaluate model accuracy and 3-fold cross validation was used for hyper parameter tuning(hidden dimension k for FFM model). Finally, we ensembeled several fields that can be used to enhance model accuray into FFM and build our final model(voting is best, give mse 0.6514) for movie recommendation.  
 
 ## Github Repo Structrue & Requirements
 
@@ -44,10 +44,10 @@ The main package we used for this project is xlearn. xLearn is a high-performanc
 
 
 Results:
-||bias|mf|ffm+genre|ffm+tag|ffm+time|ffm+year|ffm+country|ffm+ensemble|
+||bias|mf|ffm+genre|ffm+tag|ffm+time|ffm+year|ffm+country|ffm+ensemble|voting_ensembel|
 |-|-|-|-|-|-|-|-|-|
-|MSE|0.7120|0.6800|0.6673|0.6785|0.7850|0.6561|0.6569|0.6879|
-|NDCG|-|0.9058|0.9088|0.9057|0.8808|0.9111|0.9108|0.9079|
+|MSE|0.7120|0.6800|0.6673|0.6785|0.7850|0.6561|0.6569|0.6879|0.6514|
+|NDCG|-|0.9058|0.9088|0.9057|0.8808|0.9111|0.9108|0.9079|-|
 |optimal_k|-|5|40|5|30|110|45|25|
 
 ### Group user by user rating activite level
@@ -332,6 +332,50 @@ Results:
 |-|-|-|-|
 |MSE|0.728|0.692|0.640|
 |Improve|0.0063|0.019|0.0229|
+
+
+We also tried voting ensemble for 3 models on year, genre and country, and this is our best result. mse is 0.6414.
+
+```Python 
+def NDCG(t):
+    """
+    compute NDCG for a user
+    t: pandas dataframe 
+    """
+    rank = np.array(sorted(t['ranking'].values)[::-1])
+    DCG = t.sort_values(by=["ranking"],ascending=False).rating.values
+    IDCG = np.array(sorted(DCG))
+    NDCG = (np.sum((2**(DCG)-1)/np.log2(rank+1))) / (np.sum((2**(IDCG)-1)/np.log2(rank+1)))
+    return NDCG
+
+df_lst = [pd.DataFrame(),pd.DataFrame(),pd.DataFrame()]
+
+for index,file_name in enumerate(["mf_genre","mf_year","mf_country"]):
+    for i in ["1","2","3"]:
+        # update mse
+        pred_ratings = pd.read_csv("./xlearn/"+file_name+"/ratings_high_output"+i+".txt",header=None)
+        pred_ratings = pred_ratings[0]
+
+
+        label_ratings = pd.read_csv("./xlearn/"+file_name+"/ratings_high_test"+i+".txt",header=None)
+        label_ratings[0] = label_ratings[0].apply(lambda x: x.split(" ")[0:3])
+        label_ratings["rating"] = label_ratings[0].apply(lambda x: x[0])
+        label_ratings["rating"] = label_ratings["rating"].astype(float)
+        label_ratings["user_id"] = label_ratings[0].apply(lambda x: x[1])
+        label_ratings["movie_id"] = label_ratings[0].apply(lambda x: x[2])
+        label_ratings = label_ratings[['rating','user_id','movie_id']]
+        label_ratings["rating_pred"] = pred_ratings
+        
+        df_lst[index] = df_lst[index].append(label_ratings)
+        
+all_df = pd.merge(df_lst[0],df_lst[1],on=["user_id","movie_id"],how="inner")
+all_df = pd.merge(all_df,df_lst[2],on=["user_id","movie_id"],how="inner")
+all_df["rating_mean"] = (all_df.rating_pred + all_df.rating_pred_x + all_df.rating_pred_y)/3
+
+print(np.sum((all_df.rating_mean-all_df.rating)**2)/all_df.shape[0])
+```
+
+
 
 ## Generate Recommendation 
 
