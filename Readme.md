@@ -150,6 +150,15 @@ plt.show()
 
 <img src="./ffm_tag.png" width="50%" height="50%" />
 
+We compare the result for different activate level of users, we draw conclusion that the extral tags information incease the accuracy of our model but for a little bit and there is not a significant level of different improvement among activate users and inactivate users. 
+
+Results:
+||low_active_user|medium_active_user|high_active_user|
+|-|-|-|-|
+|MSE|0.7236|0.6938|0.6454|
+|Improve|0.0107|0.0172|0.0175|
+
+
 
 #### Add Genres
 
